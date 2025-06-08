@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:id="rootPane"
+            fx:controller="controller.mahasiswa.DashboardMemberControll"
+            prefWidth="1000" prefHeight="600"
+            style="-fx-background-color: #f7f7f7;">
+
+
+    <!-- Konten utama -->
+    <center>
+        <VBox alignment="TOP_CENTER" spacing="20" style="-fx-padding: 100 30 30 30;">
+            <HBox spacing="20" alignment="TOP_CENTER" style="-fx-padding: 0 60;">
+                <!-- Bagian kiri -->
+                <VBox spacing="10" alignment="TOP_LEFT">
+                    <Label text="📖 Books Currently Borrowed:"
+                           style="-fx-pref-width: 380px;
+                              -fx-pref-height: 42px;
+                              -fx-background-color: linear-gradient(to right, #8B0000, #E53935);
+                              -fx-text-fill: white;
+                              -fx-font-size: 16px;
+                              -fx-font-weight: bold;
+                              -fx-alignment: CENTER_LEFT;
+                              -fx-background-radius: 8;
+                              -fx-padding: 0 0 0 10;"/>
+                    <ListView fx:id="borrowedBooksList" prefHeight="200" prefWidth="380"/>
+                </VBox>
+
+                <!-- Bagian kanan -->
+                <VBox spacing="10" alignment="TOP_LEFT">
+                    <Label text="⏳ Return Book List:"
+                           style="-fx-pref-width: 380px;
+                              -fx-pref-height: 42px;
+                              -fx-background-color: linear-gradient(to right, #8B0000, #E53935);
+                              -fx-text-fill: white;
+                              -fx-font-size: 16px;
+                              -fx-font-weight: bold;
+                              -fx-alignment: CENTER_LEFT;
+                              -fx-background-radius: 8;
+                              -fx-padding: 0 0 0 10;"/>
+                    <ListView fx:id="returnBook" prefHeight="200" prefWidth="380"/>
+                </VBox>
+            </HBox>
+        </VBox>
+    </center>
+</BorderPane>

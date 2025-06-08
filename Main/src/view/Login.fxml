@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controller.LoginController"
+            prefWidth="1280.0" prefHeight="720.0">
+
+    <HBox spacing="60" alignment="CENTER"
+          AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0"
+          AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+
+        <!-- Gambar di kiri -->
+        <ImageView fitHeight="500" preserveRatio="true">
+            <image>
+                <Image url="@../view/images/login.png"/>
+            </image>
+        </ImageView>
+
+        <!-- Form login di kanan -->
+        <VBox spacing="25" alignment="CENTER_LEFT" maxWidth="350">
+            <Label text="UMM Library Access"
+                   style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+            <Label text="Welcome to the Universitas Muhammadiyah Malang Library"
+                   wrapText="true"/>
+
+            <VBox spacing="10" fillWidth="true">
+                <Label text="Username"/>
+                <TextField fx:id="usernameField" promptText="Enter your Username"
+                           style="-fx-border-color: #00c; -fx-border-radius: 20; -fx-background-radius: 20;"/>
+            </VBox>
+
+            <VBox spacing="10" fillWidth="true">
+                <Label text="Password"/>
+                <PasswordField fx:id="passwordField" promptText="Enter your Password"
+                               style="-fx-border-color: #00c; -fx-border-radius: 20; -fx-background-radius: 20;"/>
+            </VBox>
+
+            <HBox alignment="CENTER_LEFT" spacing="10" maxWidth="350">
+                <TextFlow>
+                    <Text text="Don't have an account? "/>
+                    <Hyperlink fx:id="signUpLink" text="Sign up here" onAction="#handleSignUpLink"/>
+                </TextFlow>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Hyperlink fx:id="adminLoginLink" text="Login as Admin" onAction="#handleAdminLoginLink"/>
+            </HBox>
+
+            <HBox alignment="CENTER_RIGHT">
+                <Button text="Login" onAction="#handleLoginButtonAction"
+                        style="-fx-background-color: maroon; -fx-text-fill: white; -fx-padding: 10 40; -fx-background-radius: 20;"/>
+            </HBox>
+        </VBox>
+    </HBox>
+</AnchorPane>
