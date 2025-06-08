@@ -1,4 +1,4 @@
-package Util;
+package controller.util.admin;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

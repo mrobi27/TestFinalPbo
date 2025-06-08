@@ -5,24 +5,37 @@ import java.util.Map;
 
 public class UserDatabase {
 
-    // Simulasi database username -> password
+    // username -> password (hanya user biasa)
     private static Map<String, String> users = new HashMap<>();
 
-    // Cek apakah username dan password valid untuk login
+    static {
+        // Contoh data user awal (user biasa)
+        users.put("user", "123");
+    }
+
+    // Validasi login user biasa
     public static boolean isValidUser(String username, String password) {
         if (username == null || password == null) return false;
-
         String storedPassword = users.get(username);
-        return password.equals(storedPassword);
+        return storedPassword != null && storedPassword.equals(password);
     }
 
-    // Cek apakah username sudah terdaftar
+    // Cek apakah user ada
     public static boolean userExists(String username) {
-        return users.containsKey(username);
+        return username != null && users.containsKey(username);
     }
 
-    // Tambah user baru ke database
+    // Tambah user baru
     public static void addUser(String username, String password) {
-        users.put(username, password);
+        if (username != null && password != null) {
+            users.put(username, password);
+        }
+    }
+
+    // Hapus user
+    public static void removeUser(String username) {
+        if (username != null) {
+            users.remove(username);
+        }
     }
 }
