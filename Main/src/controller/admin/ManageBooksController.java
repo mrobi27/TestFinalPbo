@@ -1,13 +1,19 @@
 package controller.admin;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.collections.ObservableList;
 import javafx.scene.layout.HBox;
 import javafx.geometry.Pos;
+import javafx.stage.Stage;
 import controller.model.Book;
-import controller.model.SharedBookData;  // pastikan import utilnya benar
+import controller.model.SharedBookData;
+
+import java.io.IOException;
 
 public class ManageBooksController {
 
@@ -27,7 +33,6 @@ public class ManageBooksController {
 
     @FXML
     public void initialize() {
-        // Ambil data global dari SharedBookData
         books = SharedBookData.getBooks();
 
         tableView.getColumns().clear();
@@ -60,13 +65,44 @@ public class ManageBooksController {
 
                 editBtn.setOnAction(event -> {
                     Book book = getTableView().getItems().get(getIndex());
-                    showAlert("Edit Book", "Edit book: " + book.getTitle());
+                    try {
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/admin/AddBook.fxml"));
+                        Parent root = loader.load();
+
+                        AddBookController controller = loader.getController();
+                        controller.setBookToEdit(book);
+
+                        Stage stage = new Stage();
+                        stage.setTitle("Edit Buku");
+                        stage.setScene(new Scene(root));
+
+                        // Refresh tabel saat window edit ditutup
+                        stage.setOnHiding(e -> tableView.refresh());
+
+                        stage.show();
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                        showInfoAlert("Error", "Gagal membuka form edit buku.");
+                    }
                 });
 
                 deleteBtn.setOnAction(event -> {
                     Book book = getTableView().getItems().get(getIndex());
-                    books.remove(book);  // otomatis update SharedBookData karena ini referensi yang sama
-                    showAlert("Delete Book", "Deleted book: " + book.getTitle());
+                    Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
+                    confirm.setTitle("Delete Book");
+                    confirm.setHeaderText("Are you sure you want to delete this book?");
+                    confirm.setContentText("Title: " + book.getTitle());
+
+                    ButtonType yes = new ButtonType("Yes", ButtonBar.ButtonData.YES);
+                    ButtonType no = new ButtonType("No", ButtonBar.ButtonData.NO);
+                    confirm.getButtonTypes().setAll(yes, no);
+
+                    confirm.showAndWait().ifPresent(response -> {
+                        if (response == yes) {
+                            books.remove(book);
+                            showInfoAlert("Delete Book", "Book '" + book.getTitle() + "' has been deleted.");
+                        }
+                    });
                 });
             }
 
@@ -95,10 +131,22 @@ public class ManageBooksController {
             tableView.setItems(filtered);
         });
 
-        btnAddBook.setOnAction(e -> showAlert("Add Book", "Form tambah buku belum diimplementasikan."));
+        btnAddBook.setOnAction(e -> {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/admin/AddBook.fxml"));
+                Parent root = loader.load();
+                Stage stage = new Stage();
+                stage.setTitle("Tambah Buku");
+                stage.setScene(new Scene(root));
+                stage.show();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+                showInfoAlert("Error", "Gagal membuka form tambah buku.");
+            }
+        });
     }
 
-    private void showAlert(String title, String message) {
+    private void showInfoAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);
         alert.setHeaderText(null);

@@ -1,13 +1,14 @@
 package controller.model;
 
 public class Book {
-    private final int no;
-    private final String title;
-    private final String author;
-    private final String category;
-    private final String isbn;
-    private final String status;
+    private int no;
+    private String title;
+    private String author;
+    private String category;
+    private String isbn;
+    private String status;
 
+    // Constructor
     public Book(int no, String title, String author, String category, String isbn, String status) {
         this.no = no;
         this.title = title;
@@ -42,5 +43,28 @@ public class Book {
         return status;
     }
 
-    // Kalau mau, bisa tambah setter jika ingin data bisa diubah (tapi kalau cuma baca, ini cukup)
+    // Setter
+    public void setNo(int no) {
+        this.no = no;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 }
